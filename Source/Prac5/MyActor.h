@@ -29,11 +29,16 @@ protected:
 
 	void OnTimerHandler();
 
+	UPROPERTY(EditAnywhere, Meta=(ClampMin="0", ClampMax="1"))
+	float EventProbability = 0.5f;
+
 private:
 	int moveCount = 0;	
 	FVector2D curPos;
 	float totalDistance = 0.0f;
 	float moveDistance = 0.0f;
+
+	int eventCount = 0;
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -42,6 +47,8 @@ public:
 	int Step();
 
 	float GetMoveDistance();
+
+	void TriggerEvent();
 protected:
 	float Distance(FVector2D p1, FVector2D p2);
 };

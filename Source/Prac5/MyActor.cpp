@@ -45,10 +45,12 @@ void AMyActor::OnTimerHandler()
 
 	UE_LOG(LogTemp, Log, TEXT("%d Move : {%f}, {%f} - Move {%f}"), moveCount, curPos.X, curPos.Y, distance);
 
+	TriggerEvent();
+
 	if(moveCount == StepCount)
 	{
 		GetWorldTimerManager().ClearTimer(TimerHandle);
-		UE_LOG(LogTemp, Log, TEXT("Move Done! Total distance : {%f}"), totalDistance);
+		UE_LOG(LogTemp, Log, TEXT("Move Done! Total distance : {%f}, Total event count : {%d}"), totalDistance, eventCount);
 	}
 }
 
@@ -77,6 +79,18 @@ int AMyActor::Step()
 float AMyActor::GetMoveDistance()
 {
     return moveDistance;
+}
+
+void AMyActor::TriggerEvent()
+{
+	float rate = FMath::FRand();
+
+	// FRand : [0.0f, 1.0f], 1.0이어도 실행되므로 <=이지만, 0.0에서는 실행되면 안 되므로 다시 체크해야 한다.
+	if(EventProbability > 0 && rate <= EventProbability)
+	{
+		UE_LOG(LogTemp, Log, TEXT("Event Triggered!"));
+		eventCount++;
+	}
 }
 
 float AMyActor::Distance(FVector2D p1, FVector2D p2)

@@ -41,12 +41,15 @@ void AMyActor::BeginPlay()
 void AMyActor::OnTimerHandler()
 {
 	Move();
+	float distance = GetMoveDistance();
+
+	UE_LOG(LogTemp, Log, TEXT("%d Move : {%f}, {%f} - Move {%f}"), moveCount, curPos.X, curPos.Y, distance);
+
 	if(moveCount == StepCount)
 	{
 		GetWorldTimerManager().ClearTimer(TimerHandle);
+		UE_LOG(LogTemp, Log, TEXT("Move Done! Total distance : {%f}"), totalDistance);
 	}
-
-	UE_LOG(LogTemp, Log, TEXT("%d Move : {%f}, {%f}"), moveCount, curPos.X, curPos.Y);
 }
 
 // Called every frame
@@ -60,10 +63,23 @@ void AMyActor::Move()
 	FVector2D dt(Step(), Step());
 	
 	curPos += dt;
+
 	moveCount++;
+	moveDistance = Distance(FVector2D::Zero(), dt);
+	totalDistance += moveDistance;
 }
 
 int AMyActor::Step()
 {
     return FMath::RandRange(0, 1);
+}
+
+float AMyActor::GetMoveDistance()
+{
+    return moveDistance;
+}
+
+float AMyActor::Distance(FVector2D p1, FVector2D p2)
+{
+	return FMath::Sqrt((p1.X - p2.X) * (p1.X - p2.X) + (p1.Y - p2.Y) * (p1.Y - p2.Y));
 }

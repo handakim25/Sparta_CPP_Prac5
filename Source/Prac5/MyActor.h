@@ -19,10 +19,10 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, Meta=(ClampMin="0"))
 	float MoveInterval = 1.0f;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, Meta=(ClampMin="1"))
 	int StepCount = 10;
 
 	FTimerHandle TimerHandle;
@@ -33,11 +33,15 @@ private:
 	int moveCount = 0;	
 	FVector2D curPos;
 	float totalDistance = 0.0f;
-
+	float moveDistance = 0.0f;
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	void Move();
 	int Step();
+
+	float GetMoveDistance();
+protected:
+	float Distance(FVector2D p1, FVector2D p2);
 };

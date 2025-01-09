@@ -13,7 +13,7 @@ AMyActor::AMyActor()
 	// Constructor에서는 프로퍼티 값을 읽지 못한다. BeginPlay로 이동
 	// PrimaryActorTick.TickInterval = MoveInterval; 
 
-	static int constructor_count = 0;
+	// static int constructor_count = 0;
 
 	// 에디터에서 설정한 값을 생성자에서 적용할 수 없다.
 	// 찾아본 결과로는 CDO를 생성해서 그것을 이용하기 때문이라고 한다.

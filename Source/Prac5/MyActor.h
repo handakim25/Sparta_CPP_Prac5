@@ -33,22 +33,25 @@ protected:
 	float EventProbability = 0.5f;
 
 private:
+	// 현재 이동 횟수
 	int moveCount = 0;	
+	// 현재 위치
 	FVector2D curPos;
+	// 누적 이동 거리
 	float totalDistance = 0.0f;
+	// 현재 프레임 이동 거리
 	float moveDistance = 0.0f;
-
+	// 이벤트 발생 회수
 	int eventCount = 0;
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	void Move();
-	int Step();
-
 	float GetMoveDistance();
 
 	void TriggerEvent();
 protected:
 	float Distance(FVector2D p1, FVector2D p2);
+	int Step();
 };

@@ -19,7 +19,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	UPROPERTY(EditAnywhere, Meta=(ClampMin="0"))
+	UPROPERTY(EditAnywhere, Meta=(ClampMin="0.001"))
 	float MoveInterval = 1.0f;
 
 	UPROPERTY(EditAnywhere, Meta=(ClampMin="1"))
